@@ -135,7 +135,7 @@ private:
 };
 
 //class FHoudiniParameterDetails : public TSharedFromThis<FHoudiniParameterDetails>, public TNumericUnitTypeInterface<float>, public TNumericUnitTypeInterface<int32>
-class FHoudiniParameterDetails : public TSharedFromThis<FHoudiniParameterDetails, ESPMode::NotThreadSafe>
+class HOUDINIENGINEEDITOR_API FHoudiniParameterDetails : public TSharedFromThis<FHoudiniParameterDetails, ESPMode::NotThreadSafe>
 {
 	public:
 		/**
