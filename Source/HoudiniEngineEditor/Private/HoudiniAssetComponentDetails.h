@@ -37,7 +37,7 @@
 class UHoudiniAssetComponent;
 class UStaticMesh;
 
-class FHoudiniAssetComponentDetails : public IDetailCustomization
+class HOUDINIENGINEEDITOR_API FHoudiniAssetComponentDetails : public IDetailCustomization
 {
 public:
 

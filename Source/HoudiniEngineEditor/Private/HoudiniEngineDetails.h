@@ -87,7 +87,7 @@ struct EHoudiniDetailsFlags
 	static EHoudiniDetailsFlags Defaults;
 };
 
-class FHoudiniEngineDetails : public TSharedFromThis<FHoudiniEngineDetails, ESPMode::NotThreadSafe>
+class HOUDINIENGINEEDITOR_API FHoudiniEngineDetails : public TSharedFromThis<FHoudiniEngineDetails, ESPMode::NotThreadSafe>
 {
 public:
 

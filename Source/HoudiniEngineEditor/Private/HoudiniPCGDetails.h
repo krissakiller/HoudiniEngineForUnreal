@@ -34,7 +34,7 @@
 #include "PCGContext.h"
 #include "PCGGraph.h"
 
-class UHoudiniPCGSettingsCustomization : public IDetailCustomization
+class HOUDINIENGINEEDITOR_API UHoudiniPCGSettingsCustomization : public IDetailCustomization
 {
 public:
 	UHoudiniPCGSettingsCustomization();

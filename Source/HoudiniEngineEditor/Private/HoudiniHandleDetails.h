@@ -33,7 +33,7 @@ class UHoudiniHandleComponent;
 class IDetailCategoryBuilder;
 enum class EHoudiniHandleType : uint8;
 
-class FHoudiniHandleDetails : public TSharedFromThis<FHoudiniHandleDetails> 
+class HOUDINIENGINEEDITOR_API FHoudiniHandleDetails : public TSharedFromThis<FHoudiniHandleDetails> 
 {
 public:
 	static void CreateWidget(IDetailCategoryBuilder & HouHandleCategory, const TArray<TWeakObjectPtr<UHoudiniHandleComponent>> &InHandles);

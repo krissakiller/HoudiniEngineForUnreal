@@ -29,7 +29,7 @@
 #include "DetailCategoryBuilder.h"
 #include "IDetailCustomization.h"
 
-class FHoudiniRuntimeSettingsDetails : public IDetailCustomization
+class HOUDINIENGINEEDITOR_API FHoudiniRuntimeSettingsDetails : public IDetailCustomization
 {
 public:
 

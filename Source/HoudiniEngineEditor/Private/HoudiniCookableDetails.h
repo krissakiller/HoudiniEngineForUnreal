@@ -41,7 +41,7 @@ class UHoudiniCookable;
 class UHoudiniAssetComponent;
 class UStaticMesh;
 
-class FHoudiniCookableDetails : public IDetailCustomization
+class HOUDINIENGINEEDITOR_API FHoudiniCookableDetails : public IDetailCustomization
 {
 public:
 
