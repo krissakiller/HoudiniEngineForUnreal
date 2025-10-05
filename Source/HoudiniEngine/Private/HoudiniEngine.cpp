@@ -1069,7 +1069,8 @@ FHoudiniEngine::InitializeHAPISession()
 	FHoudiniApi::GetEnvInt(HAPI_ENVINT_VERSION_HOUDINI_ENGINE_MAJOR, &RunningEngineMajor);
 	FHoudiniApi::GetEnvInt(HAPI_ENVINT_VERSION_HOUDINI_ENGINE_MINOR, &RunningEngineMinor);
 	FHoudiniApi::GetEnvInt(HAPI_ENVINT_VERSION_HOUDINI_ENGINE_API, &RunningEngineApi);
-
+	
+	/*
 	// Compare defined and running versions.
 	if (RunningEngineMajor != HAPI_VERSION_HOUDINI_ENGINE_MAJOR
 		|| RunningEngineMinor != HAPI_VERSION_HOUDINI_ENGINE_MINOR)
@@ -1101,6 +1102,7 @@ FHoudiniEngine::InitializeHAPISession()
 		HOUDINI_LOG_WARNING(
 			TEXT("This could cause instabilities and crashes when using the Houdini Engine plugin"));
 	}
+	*/
 
 	const UHoudiniRuntimeSettings * HoudiniRuntimeSettings = GetDefault< UHoudiniRuntimeSettings >();
 
