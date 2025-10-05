@@ -30,6 +30,7 @@
 #include "Curves/RealCurve.h"
 #include "HoudiniInput.h"
 #include "HoudiniEngineRuntimeCommon.h"
+#include "HoudiniParameterInterface.h"
 
 #include "HoudiniParameter.generated.h"
 
@@ -81,6 +82,7 @@ enum class EHoudiniParameterChoiceListType : uint8
 	Toggle
 };
 
+
 UCLASS(DefaultToInstanced)
 class HOUDINIENGINERUNTIME_API UHoudiniParameter : public UObject
 {
@@ -116,7 +118,21 @@ public:
 	virtual EHoudiniParameterType GetParameterType() const { return ParmType; };
 	virtual EHoudiniParameterChoiceListType GetChoiceListType() const { return ChoiceListType; };
 	virtual int32 GetTupleSize() const { return TupleSize; };
-	virtual int32 GetNodeId() const { return NodeId; };
+	virtual int32 GetNodeId() const
+	{
+#if WITH_EDITOR
+		// The parameter should always have an outer. But it might not in the editor.
+		if (UObject* Outer = GetOuter())
+		{
+			if (IHoudiniParameterInterface* ParamInterface = Cast<IHoudiniParameterInterface>(Outer))
+			{
+				return ParamInterface->GetNodeID();
+			}	
+		}
+#endif
+		
+		return NodeId;
+	};
 	virtual int32 GetParmId() const { return ParmId; };
 	virtual int32 GetParentParmId() const { return ParentParmId; };
 	virtual int32 GetChildIndex() const { return ChildIndex; };
@@ -180,7 +196,22 @@ public:
 	virtual void SetTagCount(const uint32& InTagCount) { TagCount = InTagCount; };
 	virtual void SetValueIndex(const uint32& InValueIndex) { ValueIndex = InValueIndex; };
 
-	virtual void MarkChanged(const bool& bInChanged) { bHasChanged = bInChanged; SetNeedsToTriggerUpdate(bInChanged); };
+	virtual void MarkChanged(const bool& bInChanged)
+	{
+		bHasChanged = bInChanged;
+		SetNeedsToTriggerUpdate(bInChanged);
+
+#if WITH_EDITOR
+		// The parameter should always have an outer. But it might not in the editor.
+		if (UObject* Outer = GetOuter())
+		{
+			if (IHoudiniParameterInterface* ParamInterface = Cast<IHoudiniParameterInterface>(Outer))
+			{
+				ParamInterface->OnParameterValueChanged(this);
+			}	
+		}
+#endif
+	};
 	virtual void SetNeedsToTriggerUpdate(const bool& bInTriggersUpdate) { bNeedsToTriggerUpdate = bInTriggersUpdate; };
 	virtual void RevertToDefault();
 	virtual void RevertToDefault(const int32& TupleIndex);
