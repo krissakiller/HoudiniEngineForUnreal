@@ -1409,12 +1409,38 @@ FHoudiniEngineUtils::LoadLibHAPI(FString & StoredLibHAPILocation)
 			bUseCustomPath = true;
 			CustomHoudiniLocationPath = HoudiniRuntimeSettings->CustomHoudiniLocation.Path;
 		}
-
+		
 		if (bUseCustomPath && !CustomHoudiniLocationPath.IsEmpty())
 		{
-			// Convert path to absolute if it is relative.
 			if (FPaths::IsRelative(CustomHoudiniLocationPath))
+			{
+				static FString EngineDirPrefix = TEXT("$(EngineDir)");
+				static FString ProjectDirPrefix = TEXT("$(ProjectDir)");
+
+				if(CustomHoudiniLocationPath.StartsWith(TEXT("$(EngineDir)")))
+				{
+					// Use a relative path from the engine directory
+					
+					FString EngineDir = FPaths::EngineDir();
+				
+					if (EngineDir.Len() > 0 && EngineDir[EngineDir.Len() - 1] == '/')
+					{
+						EngineDir = EngineDir.Left(EngineDir.Len() - 1);
+					}
+				
+					CustomHoudiniLocationPath = EngineDir + CustomHoudiniLocationPath.Mid(EngineDirPrefix.Len());
+				}
+				else if(CustomHoudiniLocationPath.StartsWith(ProjectDirPrefix) && FPaths::ProjectDir().Len() > 0)
+				{
+					// Use a relative path from the engine directory
+					
+					CustomHoudiniLocationPath = FPaths::ProjectDir() + CustomHoudiniLocationPath.Mid(ProjectDirPrefix.Len());
+				}
+
+				// Convert it to full path
 				CustomHoudiniLocationPath = FPaths::ConvertRelativePathToFull(CustomHoudiniLocationPath);
+
+			}
 
 			const FString LibHAPICustomPath = FString::Printf(TEXT("%s/%s"), *CustomHoudiniLocationPath, *LibHAPIName);
 
